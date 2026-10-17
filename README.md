@@ -15,7 +15,7 @@ Compiling enterprise-grade Electronic Design Automation (EDA) tools like OpenROA
 ## 🚀 Method 1: The Easy Way (Use Pre-Compiled Binaries)
 If you are running Arch Linux ARM (aarch64) and want to skip the 24-hour compilation process, you can use the pre-compiled binaries provided in this repository's Releases.
 
-### 1. Install OpenROAD (Pre-Compiled)
+1. Install OpenROAD (Pre-Compiled)
 Download the `.tar.gz` archive from the [Releases](../../releases) tab of this repository and extract it to your system root:
 ```bash
 cd ~
@@ -33,7 +33,7 @@ tar -xzf oss-cad-suite-linux-arm64-20261016.tgz
 You are now ready to run the VLSI flow! Skip down to the "Building the 8-bit
 Barrel Shifter" section.
 
-🛠️ Method 2: The Hard Way (Compiling from Source)
+# 🛠️ Method 2: The Hard Way (Compiling from Source)
 
 If you want to compile OpenROAD from scratch, you must apply several patches to
 fix Python 3.14 compatibility, fmt v12 header changes, and GCC LTO segfaults.
@@ -62,6 +62,7 @@ cd ~
 git clone --recursive https://github.com/The-OpenROAD-Project/OpenROAD.git
 cd OpenROAD
 ```
+
 4. Apply Source Code Patches (The Magic Fixes)
 
 Run these commands inside the ~/OpenROAD folder to patch the source code:
@@ -89,17 +90,18 @@ sed -i 's/CMAKE_INTERPROCEDURAL_OPTIMIZATION ON/CMAKE_INTERPROCEDURAL_OPTIMIZATI
 export CFLAGS="-fno-lto"
 export CXXFLAGS="-fno-lto"
 ```
+
 5. Compile and Install
 
-Bind the compiler to your device's Performance/Prime cores (e.g., cores 4-7) to
-maximize speed while preventing Android OOM crashes.
+Bind the compiler to your device's Performance/Prime cores (e.g., cores 4-7) to maximize speed while preventing Android OOM crashes.
 ```
 mkdir build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=OFF
 taskset -c 4-7 make -j4
 sudo make install
 ```
-⚙️ Building the 8-bit Barrel Shifter (RTL-to-GDSII)
+
+# ⚙️ Building the 8-bit Barrel Shifter (RTL-to-GDSII)
 
 Now that the tools are installed, we will use the OpenROAD-flow-scripts (ORFS)
 to synthesize a custom 8-bit CMOS Barrel Shifter using the open-source
@@ -111,6 +113,7 @@ cd ~
 git clone --recursive https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts.git
 cd OpenROAD-flow-scripts/flow
 ```
+
 2. Create the Project Files
 
 Create the necessary directories:
@@ -152,13 +155,14 @@ export DIE_AREA      = 0 0 50 50
 export CORE_AREA     = 5 5 45 45
 export PLACE_DENSITY = 0.60
 ```
+
 3. Run the Flow
 
 Execute the flow, pointing it to your installed binaries:
 ```
 make DESIGN_CONFIG=designs/sky130hd/barrel_shifter/config.mk YOSYS_EXE=~/oss-cad-suite/bin/yosys OPENROAD_EXE=/usr/local/bin/openroad
 ```
-🎨 Viewing the GUI Layout
+# 🎨 Viewing the GUI Layout
 
 Once the flow completes successfully, you can view the physical layout of your
 chip (including standard cells, power rings, and metal routing) using the
