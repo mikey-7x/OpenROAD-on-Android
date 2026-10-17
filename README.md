@@ -162,7 +162,7 @@ Execute the flow, pointing it to your installed binaries:
 ```
 make DESIGN_CONFIG=designs/sky130hd/barrel_shifter/config.mk YOSYS_EXE=~/oss-cad-suite/bin/yosys OPENROAD_EXE=/usr/local/bin/openroad
 ```
-# 🎨 Viewing the GUI Layout
+🎨 Viewing the GUI Layout
 
 Once the flow completes successfully, you can view the physical layout of your
 chip (including standard cells, power rings, and metal routing) using the
