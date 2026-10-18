@@ -169,9 +169,9 @@ chip (including standard cells, power rings, and metal routing) using the
 OpenROAD GUI.
 
 Run this command from the flow directory:
-
+```
 openroad -gui -db results/sky130hd/barrel_shifter/base/6_final.odb
-
+```
   - Use the Display Control panel to toggle metal layers (met1, met2) and
     instances.
   - The final manufacturing blueprint is saved as
